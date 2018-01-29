@@ -1,6 +1,6 @@
-add_executable(markerCreator
+add_executable(marker_creator
     main.cpp
 )
 
-target_include_directories(markerCreator PUBLIC ${OpenCV_INCLUDE_DIRS})
-target_link_libraries(markerCreator ${OpenCV_LIBS})
+target_include_directories(marker_creator PUBLIC ${OpenCV_INCLUDE_DIRS})
+target_link_libraries(marker_creator ${OpenCV_LIBS})
