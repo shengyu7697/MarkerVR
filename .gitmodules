@@ -1,0 +1,3 @@
+[submodule "data"]
+	path = data
+	url = https://github.com/shengyu7697/ArUcoMarker-Data.git
