@@ -13,7 +13,8 @@ endif()
 
 find_package(OpenCV)
 
-add_subdirectory(marker_creator)
+add_subdirectory(src/MarkerCreator)
 
-add_subdirectory(marker_detector)
+add_subdirectory(src/MarkerDetector)
 
+add_subdirectory(src/MarkersObjectPoseEstimation)
