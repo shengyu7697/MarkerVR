@@ -1,3 +1,8 @@
+## Develop Environment
+* Linux
+* [OpenCV 3.3.1](https://github.com/opencv/opencv/archive/3.3.1.zip)
+* [OpenCV's extra modules 3.3.1](https://github.com/opencv/opencv_contrib/archive/3.3.1.zip)
+
 ## How to Build
 
 #### Get Source Code
