@@ -17,8 +17,8 @@ MarkerManager::~MarkerManager()
 
 void MarkerManager::imageThread()
 {
-	//VideoCapture cap(0);
-	VideoCapture cap("data/id0-8_1.mkv");
+	VideoCapture cap(0);
+	//VideoCapture cap("data/id0-8_1.mkv");
 
 	while (mRunning) {
 
@@ -33,8 +33,10 @@ void MarkerManager::imageThread()
 			break;
 		}
 
-		if (mTacker.processImage(mFrame))
+		if (!mTacker.processImage(mFrame)) {
+			printf("processImage failed !\n");
 			break;
+		}
 
 		imshow("frame", mFrame);
 		int key = waitKey(10);

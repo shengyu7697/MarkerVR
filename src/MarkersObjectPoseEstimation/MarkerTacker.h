@@ -14,7 +14,7 @@ public:
 
 private:
 	cv::Ptr<cv::aruco::Dictionary> mDictionary;
-	std::vector<std::vector<cv::Point2f> > mCorners;
+	std::vector< std::vector<cv::Point2f> > mCorners;
 	std::vector<int> mIds;
 	std::vector<cv::Vec3d> mRvecs, mTvecs;
 	/*const*/ cv::Mat mCameraMatrix;

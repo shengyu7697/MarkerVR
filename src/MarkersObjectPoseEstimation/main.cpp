@@ -13,5 +13,7 @@ int main(void)
 		usleep(100*1000);
 	}
 
+	printf("end\n");
+
 	return 0;
 }

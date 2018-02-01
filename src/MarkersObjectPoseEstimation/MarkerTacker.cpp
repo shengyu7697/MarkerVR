@@ -39,4 +39,6 @@ bool MarkerTacker::processImage(cv::Mat &frame)
 			}
 		}
 	}
+
+	return true;
 }
