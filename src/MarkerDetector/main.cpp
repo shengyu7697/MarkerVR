@@ -26,8 +26,8 @@ int main(void)
 	float markerLength = 0.026;
 	bool showAxis = true;
 
-	//VideoCapture cap(0);
-	VideoCapture cap("data/id0-8_1.mkv");
+	VideoCapture cap(0);
+	//VideoCapture cap("data/id0-8_1.mkv");
 
 	dictionary = getPredefinedDictionary(PREDEFINED_DICTIONARY_NAME::DICT_4X4_50);
 	corners.clear();
