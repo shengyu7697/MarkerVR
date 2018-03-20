@@ -1,7 +1,7 @@
 #include "MarkerTacker.h"
 #include <opencv2/opencv.hpp>
 #include <opencv2/aruco.hpp>
-#include "Quaternion.h"
+#include "RotationUtil.h"
 
 using namespace cv;
 using namespace aruco;
@@ -63,54 +63,6 @@ MarkerTacker::~MarkerTacker()
 {
 }
 
-// https://www.learnopencv.com/rotation-matrix-to-euler-angles/
-// 但是 yaw ptich roll 順序有錯
-// Calculates rotation matrix given euler angles.
-Mat eulerAnglesToRotationMatrix(Vec3f &theta)
-{
-    // Calculate rotation about x axis
-    Mat R_x = (Mat_<double>(3,3) <<
-               1,       0,              0,
-               0,       cos(theta[0]),   -sin(theta[0]),
-               0,       sin(theta[0]),   cos(theta[0])
-               );
-
-    // Calculate rotation about y axis
-    Mat R_y = (Mat_<double>(3,3) <<
-               cos(theta[1]),    0,      sin(theta[1]),
-               0,               1,      0,
-               -sin(theta[1]),   0,      cos(theta[1])
-               );
-
-    // Calculate rotation about z axis
-    Mat R_z = (Mat_<double>(3,3) <<
-               cos(theta[2]),    -sin(theta[2]),      0,
-               sin(theta[2]),    cos(theta[2]),       0,
-               0,               0,                  1);
-
-
-    // Combined rotation matrix
-    //Mat R = R_z * R_y * R_x; // wrong
-    Mat R = R_y * R_x * R_z; // yaw ptich roll
-
-    return R;
-}
-
-inline void rodriguesRotateByEulerAngles(cv::Vec3d &rvec, const float &pitch, const float &yaw, const float &roll)
-{
-	Matx33d rot; // rotation matrix
-	Rodrigues(rvec, rot);
-	Vec3f e(degrees2Radians(pitch), degrees2Radians(yaw), degrees2Radians(roll));
-	Matx33d m = eulerAnglesToRotationMatrix(e);
-	rot = rot * m; // rotate object local
-	Rodrigues(rot, rvec);
-}
-
-inline void rodriguesRotateByEulerAngles(cv::Vec3d &rvec, const cv::Vec3d &euler)
-{
-	rodriguesRotateByEulerAngles(rvec, euler[0], euler[1], euler[2]);
-}
-
 bool MarkerTacker::processImage(cv::Mat &frame)
 {
 	std::vector<int> measuredIds;
@@ -160,13 +112,16 @@ bool MarkerTacker::processImage(cv::Mat &frame)
 				// 方法一 取其中一個
 				mCubePos = mTvecs[0];
 				mCubeOri = mRvecs[0];
-				//printf("P(%f, %f, %f)\n", mCubePos[0], mCubePos[1], mCubePos[2]);
-				printf("%f, %f, %f\n", mCubePos[0], mCubePos[1], mCubePos[2]);
-				float pos[3];
+
+				float pos[3], euler[3];
 				pos[0] = mCubePos[0];
 				pos[1] = mCubePos[1];
 				pos[2] = mCubePos[2];
-				spc.sendPose(pos, true);
+				rodrigues2Euler(mRvecs[0], euler);
+
+				//printf("P(%f, %f, %f) E(%f, %f, %f)\n", mCubePos[0], mCubePos[1], mCubePos[2], euler[0], euler[1], euler[2]);
+				printf("%f, %f, %f, %f, %f, %f\n", mCubePos[0], mCubePos[1], mCubePos[2], euler[0], euler[1], euler[2]);
+				spc.sendPose(pos, euler, true);
 
 				// 方法二 平均
 				//mCubePos = avg(mTvecs);

@@ -6,6 +6,7 @@ add_executable(markers_object_pose_estimation
     MarkerTacker.cpp
     Quaternion.h
     Quaternion.cpp
+    RotationUtil.cpp
     SocketPoseClient.cpp
     ../TinyTcp/TinyTcpClient.cpp
     ../TinyTcp/SocketUtil.cpp

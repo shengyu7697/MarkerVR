@@ -10,7 +10,7 @@ public:
 	SocketPoseClient();
 	~SocketPoseClient();
 
-	void sendPose(float pos[3], bool cv2gl = false);
+	void sendPose(float pos[3], float euler[3], bool cv2gl = false);
 
 private:
 	void onConnect2(int session);
