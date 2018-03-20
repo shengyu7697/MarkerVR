@@ -162,6 +162,11 @@ bool MarkerTacker::processImage(cv::Mat &frame)
 				mCubeOri = mRvecs[0];
 				//printf("P(%f, %f, %f)\n", mCubePos[0], mCubePos[1], mCubePos[2]);
 				printf("%f, %f, %f\n", mCubePos[0], mCubePos[1], mCubePos[2]);
+				float pos[3];
+				pos[0] = mCubePos[0];
+				pos[1] = mCubePos[1];
+				pos[2] = mCubePos[2];
+				spc.sendPose(pos, true);
 
 				// 方法二 平均
 				//mCubePos = avg(mTvecs);

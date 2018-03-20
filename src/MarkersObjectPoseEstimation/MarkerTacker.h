@@ -4,6 +4,7 @@
 #include <opencv2/core/mat.hpp>
 #include <opencv2/aruco.hpp>
 #include <vector>
+#include "SocketPoseClient.h"
 
 class MarkerObject
 {
@@ -42,6 +43,9 @@ private:
 	// 最後計算出來的 Pose
 	cv::Vec3d mCubePos;
 	cv::Vec3d mCubeOri;
+
+	// render pose in openGL
+	SocketPoseClient spc;
 };
 
 #endif // MARKER_TACKER_H
