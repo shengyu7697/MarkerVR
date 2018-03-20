@@ -38,6 +38,9 @@ void MarkerManager::imageThread()
 			break;
 		}
 
+		// TODO
+		// handler() // update pose 
+
 		imshow("frame", mFrame);
 		int key = waitKey(10);
 		if (key == 27 || key == 'q')
