@@ -1,4 +1,4 @@
-project(ArUcoMarker)
+project(MarkerVR)
 cmake_minimum_required(VERSION 3.0)
 
 set(CMAKE_BUILD_TYPE Debug)
@@ -17,4 +17,4 @@ add_subdirectory(src/MarkerCreator)
 
 add_subdirectory(src/MarkerDetector)
 
-add_subdirectory(src/MarkersObjectPoseEstimation)
+add_subdirectory(src/MarkerVR)
