@@ -1,5 +1,7 @@
 # MarkerVR
 This is a Marker-based Tracking System for VR/AR Applications.  
+* 6DoF Motion Tracking
+* Vision-based
 
 ## Develop Environment
 * Linux
