@@ -101,7 +101,7 @@ bool MarkerTacker::processImage(cv::Mat &frame)
 						Matx33d rot;  // rotation matrix
 						Rodrigues(mRvecs[i], rot);
 						mTvecs[i] = mTvecs[i] + rot * cubePosToCenter[j]; // 沿著物件中心的法向量 扣掉 距離
-						rodriguesRotateByEulerAngles(mRvecs[i], cubeOriToCenter[j]);
+						rodriguesRotateByEuler(mRvecs[i], cubeOriToCenter[j]);
 					}
 				}
 
