@@ -13,16 +13,16 @@ public:
 	void sendPose(float pos[3], float euler[3], bool cv2gl = false);
 
 private:
-	void onConnect2(int session);
-	void onDisconnect2(int session);
-	void onRecv2(int session, const char *buf, int len);
+	void onConnect(int session);
+	void onDisconnect(int session);
+	void onRecv(int session, const char *buf, int len);
 
 	float mPos[3] = {0.0, 0.0, 0.0};
 	TinyTcpClient mClient;
 
-	OnConnect onConnect = nullptr;
-	OnDisconnect onDisconnect = nullptr;
-	OnRecv onRecv = nullptr;
+	OnConnect onConnectCB = nullptr;
+	OnDisconnect onDisconnectCB = nullptr;
+	OnRecv onRecvCB = nullptr;
 };
 
 #endif // SOCKETPOSECLIENT_H

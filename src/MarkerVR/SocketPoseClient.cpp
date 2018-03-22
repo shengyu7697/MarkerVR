@@ -8,12 +8,12 @@ SocketPoseClient::SocketPoseClient()
 	int port = 7000;
 	printf("start client, connect to %s:%d\n", hostname.c_str(), port);
 
-	onConnect = std::bind(&SocketPoseClient::onConnect2, this, std::placeholders::_1);
-	mClient.setOnConnectCB(onConnect);
-	onDisconnect = std::bind(&SocketPoseClient::onDisconnect2, this, std::placeholders::_1);
-	mClient.setOnDisconnectCB(onDisconnect);
-	onRecv = std::bind(&SocketPoseClient::onRecv2, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
-	mClient.setOnRecvCB(onRecv);
+	onConnectCB = std::bind(&SocketPoseClient::onConnect, this, std::placeholders::_1);
+	mClient.setOnConnect(onConnectCB);
+	onDisconnectCB = std::bind(&SocketPoseClient::onDisconnect, this, std::placeholders::_1);
+	mClient.setOnDisconnect(onDisconnectCB);
+	onRecvCB = std::bind(&SocketPoseClient::onRecv, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+	mClient.setOnRecv(onRecvCB);
 	mClient.start(hostname, 7000);
 }
 
@@ -47,17 +47,17 @@ void SocketPoseClient::sendPose(float pos[3], float euler[3], bool cv2gl)
 	mClient.send(buf, (int)strlen(buf));
 }
 
-void SocketPoseClient::onConnect2(int session)
+void SocketPoseClient::onConnect(int session)
 {
 	printf("onConnect\n");
 }
 
-void SocketPoseClient::onDisconnect2(int session)
+void SocketPoseClient::onDisconnect(int session)
 {
 	printf("onDisconnect\n");
 }
 
-void SocketPoseClient::onRecv2(int session, const char *buf, int len)
+void SocketPoseClient::onRecv(int session, const char *buf, int len)
 {
 	//printf("session=%d, len=%d, buf=%s\n", session, len, buf);
 	printf("Server: %s\n", buf);
