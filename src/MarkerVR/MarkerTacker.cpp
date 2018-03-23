@@ -35,7 +35,6 @@ MarkerTacker::MarkerTacker()
 		cv::Vec3d(0, 0, 0),
 		cv::Vec3d(0, 0, 0),
 		cv::Vec3d(0, 0, 0),
-		cv::Vec3d(0, 0, 0),
 		cv::Vec3d(0, 0, 0)
 	};*/
 
@@ -49,13 +48,12 @@ MarkerTacker::MarkerTacker()
 	};
 	*/
 	cubeOriToCenter = {
-		cv::Vec3d(0, 0, 0),
-		cv::Vec3d(0, -90, 0),
-		cv::Vec3d(0, -180, 0),
-		cv::Vec3d(0, 90, 0),
-		cv::Vec3d(90, 0, 0),
-		cv::Vec3d(0, 0, 0),
-		cv::Vec3d(0, 0, 0)
+		cv::Vec3d(0, 90, 0), // 20
+		cv::Vec3d(0, 0, 0), // 21
+		cv::Vec3d(0, -90, 0), // 22
+		cv::Vec3d(0, -180, 0), // 23
+		cv::Vec3d(90, 0, 0), // 24
+		cv::Vec3d(-90, 0, 0) // 25
 	};
 }
 
