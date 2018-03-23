@@ -9,6 +9,14 @@ using namespace cv;
 // pitch     yaw      roll
 // attitude  heading  bank
 // x         y        z
+//
+//       +y (yaw, heading)
+//        │
+//        |
+//        └─ ─ ─ ─  +x (pitch, attitude)
+//       /
+//      /
+//    +z (roll, bank)
 
 // ref: http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToMatrix/index.htm
 /** Euler Angles to Rotation Matrix
