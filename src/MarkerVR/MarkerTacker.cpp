@@ -117,8 +117,8 @@ bool MarkerTacker::processImage(cv::Mat &frame)
 				pos[2] = mCubePos[2];
 				rodrigues2Euler(mRvecs[0], euler);
 
-				//printf("P(%f, %f, %f) E(%f, %f, %f)\n", mCubePos[0], mCubePos[1], mCubePos[2], euler[0], euler[1], euler[2]);
-				printf("%f, %f, %f, %f, %f, %f\n", mCubePos[0], mCubePos[1], mCubePos[2], euler[0], euler[1], euler[2]);
+				printf("P(%6.2f, %6.2f, %6.2f) E(%7.2f, %7.2f, %7.2f)\n", mCubePos[0], mCubePos[1], mCubePos[2], euler[0], euler[1], euler[2]);
+				//printf("%f, %f, %f, %f, %f, %f\n", mCubePos[0], mCubePos[1], mCubePos[2], euler[0], euler[1], euler[2]);
 				spc.sendPose(pos, euler, true);
 
 				// 方法二 平均
