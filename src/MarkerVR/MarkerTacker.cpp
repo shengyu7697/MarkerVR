@@ -47,6 +47,16 @@ MarkerTacker::MarkerTacker()
 		cv::Vec3d(90, 0, 0)
 	};
 	*/
+
+	/* Cube Marker Define
+	 *       ┌ ─ ─ ┐
+	 *       │ 24  │
+	 * ┌ ─ ─ ┼ ─ ─ ┼ ─ ─ ┬ ─ ─ ┐
+	 * │ 20  │ 21  │ 22  │ 23  │
+	 * └ ─ ─ ┼ ─ ─ ┼ ─ ─ ┴ ─ ─ ┘
+	 *       │ 25  │
+	 *       └ ─ ─ ┘
+	 */
 	cubeOriToCenter = {
 		cv::Vec3d(0, 90, 0), // 20
 		cv::Vec3d(0, 0, 0), // 21
