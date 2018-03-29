@@ -1,3 +1,6 @@
 [submodule "data"]
 	path = data
 	url = https://github.com/shengyu7697/ArUcoMarker-Data.git
+[submodule "thirdparty/TinyTcp"]
+	path = thirdparty/TinyTcp
+	url = https://github.com/shengyu7697/TinyTcp.git
