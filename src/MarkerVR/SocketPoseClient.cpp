@@ -27,9 +27,9 @@ inline void opencv2opengl(float pos[3], float euler[3])
 	pos[0] = -pos[0];
 	pos[1] = -pos[1];
 	//pos[2] = pos[2];
-	euler[0] = -euler[0];
-	euler[1] = -euler[1];
-	euler[2] = -euler[2];
+	euler[0] = euler[0];
+	euler[1] = euler[1];
+	euler[2] = euler[2];
 }
 
 void SocketPoseClient::sendPose(float pos[3], float euler[3], bool cv2gl)

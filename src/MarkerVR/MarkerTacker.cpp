@@ -115,26 +115,32 @@ bool MarkerTacker::processImage(cv::Mat &frame)
 
 				if (mShowAxis)
 					drawAxis(frame, mCameraMatrix, mDistCoeffs, mRvecs[i], mTvecs[i], float(0.03));
-
-				// TODO update pose
-				// 方法一 取其中一個
-				mCubePos = mTvecs[0];
-				mCubeOri = mRvecs[0];
-
-				float pos[3], euler[3];
-				pos[0] = mCubePos[0];
-				pos[1] = mCubePos[1];
-				pos[2] = mCubePos[2];
-				rodrigues2Euler(mRvecs[0], euler);
-
-				printf("P(%6.2f, %6.2f, %6.2f) E(%7.2f, %7.2f, %7.2f)\n", mCubePos[0], mCubePos[1], mCubePos[2], euler[0], euler[1], euler[2]);
-				//printf("%f, %f, %f, %f, %f, %f\n", mCubePos[0], mCubePos[1], mCubePos[2], euler[0], euler[1], euler[2]);
-				spc.sendPose(pos, euler, true);
-
-				// 方法二 平均
-				//mCubePos = avg(mTvecs);
-				//mCubeOri = avg(mRvecs);
 			}
+
+			// TODO update pose
+			// 方法一 取其中一個
+			mCubePos = mTvecs[0];
+			mCubeOri = mRvecs[0];
+
+			float pos[3], euler[3];
+			pos[0] = mCubePos[0];
+			pos[1] = mCubePos[1];
+			pos[2] = mCubePos[2];
+
+			// FIXME
+			// rodrigues to martix
+			// rot z180 * martix
+			// martix to euler
+			rodriguesRotateByEuler(mRvecs[0], 0, 0, 180);
+			rodrigues2Euler(mRvecs[0], euler);
+
+			printf("P(%6.2f, %6.2f, %6.2f) E(%7.2f, %7.2f, %7.2f)\n", mCubePos[0], mCubePos[1], mCubePos[2], euler[0], euler[1], euler[2]);
+			//printf("%f, %f, %f, %f, %f, %f\n", mCubePos[0], mCubePos[1], mCubePos[2], euler[0], euler[1], euler[2]);
+			spc.sendPose(pos, euler, true);
+
+			// 方法二 平均
+			//mCubePos = avg(mTvecs);
+			//mCubeOri = avg(mRvecs);
 		}
 	}
 
