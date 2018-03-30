@@ -1,6 +1,11 @@
 #include "SocketPoseClient.h"
-
 #include <string.h>
+using namespace std;
+
+#if defined(USE_PROTOBUF)
+#include "pose.pb.h"
+using namespace vr;
+#endif
 
 SocketPoseClient::SocketPoseClient() 
 {
@@ -42,9 +47,22 @@ void SocketPoseClient::sendPose(float pos[3], float euler[3], bool cv2gl)
 		pos[2] = pos[2] * scale;
 	}
 
+#if defined(USE_PROTOBUF)
+	Pose pose;
+	pose.set_pos_x(pos[0]);
+	pose.set_pos_y(pos[1]);
+	pose.set_pos_z(pos[2]);
+	pose.set_euler_x(euler[0]);
+	pose.set_euler_y(euler[1]);
+	pose.set_euler_z(euler[2]);
+	string data;
+	pose.SerializeToString(&data);
+	mClient.send(data.c_str(), data.size());
+#else
 	char buf[64];
 	sprintf(buf, "%f, %f, %f, %f, %f, %f", pos[0], pos[1], pos[2], euler[0], euler[1], euler[2]);
 	mClient.send(buf, (int)strlen(buf));
+#endif
 }
 
 void SocketPoseClient::onConnect(int session)
