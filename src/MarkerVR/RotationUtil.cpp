@@ -115,7 +115,7 @@ static bool isRotationMatrix(const Mat &R)
 *   [m00 m01 m02]
 *   [m10 m11 m12]
 *   [m20 m21 m22]*/
-Vec3f matrix2Euler(const Mat &R)
+Vec3f _matrix2Euler(const Mat &R)
 {
     assert(isRotationMatrix(R));
     float sy = sqrt(R.at<double>(0,0) * R.at<double>(0,0) +  R.at<double>(1,0) * R.at<double>(1,0) );
@@ -134,7 +134,30 @@ Vec3f matrix2Euler(const Mat &R)
         y = atan2(-R.at<double>(2,0), sy);
         z = 0;
     }
-    return Vec3f(x, y, z);
+    return Vec3f(x, y, -z);
+}
+
+// ref http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToEuler/index.htm
+Vec3f matrix2Euler(const Mat &R) {
+    // Assuming the angles are in radians.
+	float heading, attitude, bank;
+	if (R.at<double>(1,0) > 0.998) { // singularity at north pole
+		heading = atan2(R.at<double>(0,2),R.at<double>(2,2));
+		attitude = M_PI/2;
+		bank = 0;
+		return Vec3f(bank, heading, attitude);
+	}
+	if (R.at<double>(1,0) < -0.998) { // singularity at south pole
+		heading = atan2(R.at<double>(0,2),R.at<double>(2,2));
+		attitude = -M_PI/2;
+		bank = 0;
+		return Vec3f(bank, heading, attitude);
+	}
+	heading = atan2(-R.at<double>(2,0),R.at<double>(0,0));
+	bank = atan2(-R.at<double>(1,2),R.at<double>(1,1));
+	attitude = asin(R.at<double>(1,0));
+
+	return Vec3f(-bank, -heading, attitude);
 }
 
 // rodrigues to euler angles
@@ -143,16 +166,11 @@ void rodrigues2Euler(Vec3d &rvec, float &pitch, float &yaw, float &roll)
 	Mat rot; // rotation matrix
 	Rodrigues(rvec, rot);
 	Vec3f euler = matrix2Euler(rot);
+	//Vec3f euler = _matrix2Euler(rot);
 	pitch = radians2Degrees(euler[0]);
 	yaw = radians2Degrees(euler[1]);
 	roll = radians2Degrees(euler[2]);
 }
-
-void rodrigues2Euler(Vec3d &rvec, float euler[3])
-{
-	rodrigues2Euler(rvec, euler[0], euler[1], euler[2]);
-}
-
 
 // ----------------------------------------------------------------------------
 void rodriguesRotateByEuler(Vec3d &rvec, const float &pitch, const float &yaw, const float &roll)
@@ -163,9 +181,4 @@ void rodriguesRotateByEuler(Vec3d &rvec, const float &pitch, const float &yaw, c
 	Matx33d m = euler2matrix(e);
 	rot = rot * m; // rotate object local
 	Rodrigues(rot, rvec);
-}
-
-void rodriguesRotateByEuler(Vec3d &rvec, const Vec3d &euler)
-{
-	rodriguesRotateByEuler(rvec, euler[0], euler[1], euler[2]);
 }

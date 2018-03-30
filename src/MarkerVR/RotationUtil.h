@@ -12,7 +12,9 @@ cv::Vec3f matrix2Euler(const cv::Mat &R);
 
 // Rodrigues to Euler
 void rodrigues2Euler(cv::Vec3d &rvec, float &pitch, float &yaw, float &roll);
-void rodrigues2Euler(cv::Vec3d &rvec, float euler[3]);
+inline void rodrigues2Euler(cv::Vec3d &rvec, float euler[3]) {
+	rodrigues2Euler(rvec, euler[0], euler[1], euler[2]);
+}
 
 // Euler to Rodrigues
 // TODO
@@ -20,6 +22,8 @@ void rodrigues2Euler(cv::Vec3d &rvec, float euler[3]);
 
 // Other
 void rodriguesRotateByEuler(cv::Vec3d &rvec, const float &pitch, const float &yaw, const float &roll);
-void rodriguesRotateByEuler(cv::Vec3d &rvec, const cv::Vec3d &euler);
+inline void rodriguesRotateByEuler(cv::Vec3d &rvec, const cv::Vec3d &euler) {
+	rodriguesRotateByEuler(rvec, euler[0], euler[1], euler[2]);
+}
 
 #endif // ROTATIONUTIL_H
