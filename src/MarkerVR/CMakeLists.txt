@@ -10,6 +10,7 @@ set(FILES
     SocketPoseClient.cpp
     ../../thirdparty/TinyTcp/src/TinyTcp/TinyTcpClient.cpp
     ../../thirdparty/TinyTcp/src/TinyTcp/SocketUtil.cpp
+    DebugWindow.cpp
 )
 
 if(USE_PROTOBUF)

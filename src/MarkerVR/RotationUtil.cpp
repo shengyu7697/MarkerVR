@@ -1,5 +1,6 @@
 #include "RotationUtil.h"
 #include "Quaternion.h"
+#include "DebugWindow.h"
 
 #include <opencv2/calib3d.hpp>
 
@@ -117,6 +118,7 @@ static bool isRotationMatrix(const Mat &R)
 *   [m20 m21 m22]*/
 Vec3f _matrix2Euler(const Mat &R)
 {
+	static DebugWindow debug("debug");
     assert(isRotationMatrix(R));
     float sy = sqrt(R.at<double>(0,0) * R.at<double>(0,0) +  R.at<double>(1,0) * R.at<double>(1,0) );
     bool singular = sy < 1e-6; // If
@@ -127,13 +129,17 @@ Vec3f _matrix2Euler(const Mat &R)
         x = atan2(R.at<double>(2,1) , R.at<double>(2,2));
         y = atan2(-R.at<double>(2,0), sy);
         z = atan2(R.at<double>(1,0), R.at<double>(0,0));
+        debug.putText("1");
     }
     else
     {
         x = atan2(-R.at<double>(1,2), R.at<double>(1,1));
         y = atan2(-R.at<double>(2,0), sy);
         z = 0;
+        debug.putText("2");
     }
+
+    debug.show();
     return Vec3f(x, y, -z);
 }
 
