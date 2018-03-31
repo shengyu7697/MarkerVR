@@ -23,6 +23,13 @@ cd MarkerVR
 git submodule init
 git submodule update
 ```
+
+#### Pre-Install
+protobuf  
+```
+sudo apt-get install libprotobuf-dev protobuf-compiler
+```
+
 #### Build
 ```
 cd MarkerVR
