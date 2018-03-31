@@ -30,3 +30,6 @@ cd MarkerVR
 cd build
 make -j8
 ```
+
+## License
+MarkerVR is published under the MIT license.  
