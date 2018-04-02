@@ -10,11 +10,12 @@ public:
 	DebugWindow(const std::string& windowname = "DebugWindow");
 	~DebugWindow();
 
-	void init();
 	void putText(const std::string& text1, const std::string& text2 = "");
 	void show();
 
 private:
+	void init();
+
 	cv::Mat mImage;
 	std::string mWindowName;
 };
